@@ -1,16 +1,26 @@
 const axios = require('axios');
+const { LocalStorage } = require('node-localstorage');
+const localStorage = new LocalStorage('./scratch');
+const { getAuthString } = require('../authManager');
+
 
 const SERVICE_URL = 'http://127.0.0.1:8080/Test_600_MerchantGuiService_Core/MerchantGuiReceiver/processRequest';
-const AUTH_STRING = "Basic dGxjZnpjOnQzbGswbTEyMw==";
+const AUTH_STRING = "Basic dGxjZnpjOnQzbGswbTEyMw=="; // Static auth string, can also be replaced if needed
 
+
+// OTP Response handler
 const otpResponse = async (req, res) => {
-  const { otp ,msisdn} = req.body;
+  const { otp, msisdn, username, password } = req.body;
 
   const payload = {
     OTP: otp.toString(),
     MSISDN: msisdn.toString(),
+    USERNAME: username.toString(),
+    PASSWORD: password.toString(),
   };
 
+  const storedDataString = getAuthString();
+  console.log(storedDataString);
   try {
     console.log("LOGINOTPRES REQ:", JSON.stringify(payload));
 
@@ -18,12 +28,15 @@ const otpResponse = async (req, res) => {
       headers: {
         'Content-Type': 'application/json',
         'method': 'LOGINOTPRES',
-        'Authorization': AUTH_STRING,
+        'Authorization': AUTH_STRING,  
         'Language': 'EN',
-        'Content-Length': Buffer.byteLength(JSON.stringify(payload)), // Optional
-        'token': 'VEVTVF9KUEBwOWk2cWJydHFzanZpYmZpY3QwZjg0NnN0ZEA6OjE=',
+        'Content-Length': Buffer.byteLength(JSON.stringify(payload)),
+       'token': storedDataString,
       },
     });
+
+    localStorage.setItem('LOGINOTPRES', JSON.stringify(response.data));
+
 
     console.log("LOGINOTPRES RES:", response.data);
     res.status(200).json(response.data);
