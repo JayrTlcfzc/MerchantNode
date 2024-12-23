@@ -42,7 +42,7 @@ const otpResponse = async (req, res) => {
     res.status(200).json(response.data);
   } catch (error) {
     console.error('Error during OTP request:', error);
-    res.status(500).json({ error: 'Error during OTP request' });
+    res.status(500).json({ error: 'Error during OTP request!' });
   }
 };
 
