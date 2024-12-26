@@ -7,7 +7,7 @@ const AUTH_STRING = "Basic dGxjZnpjOnQzbGswbTEyMw==";
 
 function getAuthString(account, sessionID, remoteAddress) {
   const authString = `${account}@${sessionID}@${remoteAddress}`;
-  return Buffer.from(authString).toString('base64');  // Convert the string to base64
+  return Buffer.from(authString).toString('base64');  
 }
 
 
