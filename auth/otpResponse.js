@@ -1,14 +1,13 @@
 const axios = require('axios');
 const { LocalStorage } = require('node-localstorage');
 const localStorage = new LocalStorage('./scratch');
-const { getAuthString } = require('../authManager');
+const { setAuthString, getAuthString } = require('../authManager');
 
 
 const SERVICE_URL = 'http://127.0.0.1:8080/Test_600_MerchantGuiService_Core/MerchantGuiReceiver/processRequest';
-const AUTH_STRING = "Basic dGxjZnpjOnQzbGswbTEyMw=="; // Static auth string, can also be replaced if needed
+const AUTH_STRING = "Basic dGxjZnpjOnQzbGswbTEyMw=="; 
 
 
-// OTP Response handler
 const otpResponse = async (req, res) => {
   const { otp, msisdn, username, password } = req.body;
 
@@ -21,6 +20,7 @@ const otpResponse = async (req, res) => {
 
   const storedDataString = getAuthString();
   console.log(storedDataString);
+
   try {
     console.log("LOGINOTPRES REQ:", JSON.stringify(payload));
 
@@ -28,18 +28,35 @@ const otpResponse = async (req, res) => {
       headers: {
         'Content-Type': 'application/json',
         'method': 'LOGINOTPRES',
-        'Authorization': AUTH_STRING,  
+        'Authorization': AUTH_STRING,
         'Language': 'EN',
         'Content-Length': Buffer.byteLength(JSON.stringify(payload)),
-       'token': storedDataString,
+        'token': storedDataString,
       },
     });
 
-    localStorage.setItem('LOGINOTPRES', JSON.stringify(response.data));
+   
+    const responseData = response.data;
 
+   
+    if (responseData.Data) {
+      const parsedData = JSON.parse(responseData.Data); 
+      const token = parsedData.token;
+      console.log('parseddata', parsedData);
+      if (token) {
+        setAuthString(token); 
+        console.log("Token set successfully:", token);
+      } else {
+        console.error("Token not found in response.");
+      }
+    } else {
+      console.error("No 'Data' field in response.");
+    }
 
-    console.log("LOGINOTPRES RES:", response.data);
-    res.status(200).json(response.data);
+    localStorage.setItem('LOGINOTPRES', JSON.stringify(responseData));
+    console.log("LOGINOTPRES RES:", responseData);
+    res.status(200).json(responseData);
+
   } catch (error) {
     console.error('Error during OTP request:', error);
     res.status(500).json({ error: 'Error during OTP request!' });

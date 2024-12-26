@@ -1,12 +1,10 @@
 const axios = require('axios');
 const { LocalStorage } = require('node-localstorage');
 const localStorage = new LocalStorage('./scratch');
-
+const { setAuthString, getAuthString } = require('../authManager');
 
 const SERVICE_URL = 'http://127.0.0.1:8080/Test_600_MerchantGuiService_Core/MerchantGuiReceiver/processRequest';
 const AUTH_STRING = "Basic dGxjZnpjOnQzbGswbTEyMw==";
-const storedDataString = localStorage.getItem('LOGINOTPRES');
-const tokenString = localStorage.getItem('TOKENSTRING');
 
   
 const changePassword = async (req, res) => {
@@ -22,7 +20,8 @@ const changePassword = async (req, res) => {
 
   try {
     console.log("CHANGE PASSWORD REQ:", JSON.stringify(payload));
-    console.log("Auth String:", tokenString);
+    const storedDataString = getAuthString();
+    console.log(storedDataString)
 
     const response = await axios.post(SERVICE_URL, JSON.stringify(payload), {
       headers: {
@@ -30,8 +29,8 @@ const changePassword = async (req, res) => {
         'method': 'USERS.CHANGEPASSWORD',
         'Authorization': AUTH_STRING,
         'Language': 'EN',
-        'Content-Length': Buffer.byteLength(JSON.stringify(payload)), // Optional
-        'token': tokenString,
+        'Content-Length': Buffer.byteLength(JSON.stringify(payload)), 
+        'token': storedDataString,
       },
     });
 
