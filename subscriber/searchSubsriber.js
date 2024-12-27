@@ -1,147 +1,98 @@
 const axios = require('axios');
+const { setAuthString, getAuthString } = require('../authManager');
+
 
 class Account {
-  constructor() {
-    this.id = null;
-    this.userId = null;
-    this.nickname = null;
-    this.msisdn = null;
-    this.accountType = null;
-    this.dateRegistered = null;
-    this.dateModified = null;
-    this.kyc = null;
-    this.referenceAccount = null;
-    this.status = null;
-    this.locked = null;
-    this.currentAmount = null;
-    this.controlReference = null;
-    this.lastName = null;
-    this.firstName = null;
-    this.secondName = null;
-    this.idNumber = null;
-    this.idDescription = null;
-    this.idExpiry = null;
-    this.nationality = null;
-    this.gender = null;
-    this.dateOfBirth = null;
-    this.placeOfBirth = null;
-    this.authLastName = null;
-    this.authFirstName = null;
-    this.authIdNumber = null;
-    this.authIdDescription = null;
-    this.company = null;
-    this.profession = null;
-    this.cityVillage = null;
-    this.streetName = null;
-    this.bldgNumber = null;
-    this.region = null;
-    this.country = null;
-    this.email = null;
-    this.altNumber = null;
-    this.tin = null;
-    this.corpDate = null;
-    this.commissionAmount = null;
+  constructor(data) {
+    this.id = data.MobileAccountInfo?.ID || null;
+    this.userId = data.MobileAccountInfo?.USERID || null;
+    this.nickname = data.MobileAccountInfo?.ALIAS || null;
+    this.msisdn = data.MobileAccountInfo?.MSISDN || null;
+    this.accountType = data.MobileAccountInfo?.TYPE || null;
+    this.dateRegistered = data.MobileAccountInfo?.REGDATE || null;
+    this.dateModified = data.MobileAccountInfo?.MODDATE || null;
+    this.kyc = data.MobileAccountInfo?.KYC || null;
+    this.referenceAccount = data.MobileAccountInfo?.REFERENCEACCOUNT || null;
+    this.status = data.MobileAccountInfo?.STATUS || null;
+    this.locked = data.MobileAccountInfo?.LOCKED || null;
+    this.currentAmount = data.CurrentstockInfo?.MAINAMOUNT || null;
+    this.controlReference = data.PersonalInfo?.CONTROLREFERENCE || null;
+    this.lastName = data.PersonalInfo?.LASTNAME || null;
+    this.firstName = data.PersonalInfo?.FIRSTNAME || null;
+    this.secondName = data.PersonalInfo?.SECONDNAME || null;
+    this.idNumber = data.PersonalInfo?.IDNUMBER || null;
+    this.idDescription = data.PersonalInfo?.IDDESCRIPTION || null;
+    this.idExpiry = data.PersonalInfo?.IDEXPIRYDATE || null;
+    this.nationality = data.PersonalInfo?.NATIONALITY || null;
+    this.gender = data.PersonalInfo?.GENDER || null;
+    this.dateOfBirth = data.PersonalInfo?.DATEOFBIRTH || null;
+    this.placeOfBirth = data.PersonalInfo?.PLACEOFBIRTH || null;
+    this.authLastName = data.PersonalInfo?.AUTHORIZINGLASTNAME || null;
+    this.authFirstName = data.PersonalInfo?.AUTHORIZINGFIRSTNAME || null;
+    this.authIdNumber = data.PersonalInfo?.AUTHORIZINGIDNUMBER || null;
+    this.authIdDescription = data.PersonalInfo?.AUTHORIZINGIDDESCRIPTION || null;
+    this.company = data.PersonalInfo?.COMPANY || null;
+    this.profession = data.PersonalInfo?.PROFESSION || null;
+    this.cityVillage = data.PersonalInfo?.CITY || null;
+    this.streetName = data.PersonalInfo?.STREETNAME || null;
+    this.bldgNumber = data.PersonalInfo?.BUILDINGNUMBER || null;
+    this.region = data.PersonalInfo?.REGION || null;
+    this.country = data.PersonalInfo?.COUNTRY || null;
+    this.email = data.PersonalInfo?.EMAIL || null;
+    this.altNumber = data.PersonalInfo?.ALTNUMBER || null;
+    this.tin = data.PersonalInfo?.TINNUMBER || null;
+    this.corpDate = data.CorpInfo?.CORPDATEOFINCORPORATION || null;
+    this.commissionAmount = data.CurrentstockInfo?.COMMISSIONAMOUNT || null;
   }
 }
 
 const SERVICE_URL = 'http://127.0.0.1:8080/Test_600_MerchantGuiService_Core/MerchantGuiReceiver/processRequest';
-const AUTH_STRING = "Basic dGxjZnpjOnQzbGswbTEyMw=="; // Static auth string, can also be replaced if needed
+const AUTH_STRING = "Basic dGxjZnpjOnQzbGswbTEyMw=="; 
 
-// Function to generate token
-function getAuthString(account, sessionID, remoteAddress) {
-  const authString = `${account}@${sessionID}@${remoteAddress}`;
-  return Buffer.from(authString).toString('base64');  // Convert the string to base64
-}
+async function hasRows(req, res) {
+  const { msisdn, optINP } = req.body;  
+  
+ 
+  if (!msisdn || !optINP) {
+    return res.status(400).json({ success: false, message: 'Missing required fields: msisdn or optINP' });
+  }
 
-async function hasRows(input, option) {
-  const payload = {
-    INP: '2250143767610',
-    OPTION: '2',
-  };
+  const payload = { INP: msisdn, OPTION: optINP };
+  const storedDataString = getAuthString();
 
-  const account = username.toString(); // Assuming req.account contains the account info
-  const sessionID = req.sessionID; // or use the session id stored elsewhere
-  // const remoteAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress;
-  const remoteAddress = "::1"
-
-  const authString = getAuthString(account, sessionID, remoteAddress); // Use the getAuthString function
-
+  console.log(payload);
+  console.log(msisdn, optINP);
 
   try {
-    console.log('Sending request to ACCOUNTS.SEARCH with payload:', payload);
-
-     const response = await axios.post(SERVICE_URL, JSON.stringify(payload), {
-          headers: {
-            'Content-Type': 'application/json',
-            'method': 'LOGINOTPRES',
-            'Authorization': AUTH_STRING,  // Static or dynamic authorization string
-            'Language': 'EN',
-            'Content-Length': Buffer.byteLength(JSON.stringify(payload)),
-            'token': authString,  // Use the session token
-            // 'token': 'VEVTVF9KUEBwOWk2cWJydHFzanZpYmZpY3QwZjg0NnN0ZEA6OjE=',
-          },
-        });
     
+    const response = await axios.post(SERVICE_URL, payload, {
+      headers: {
+        'Content-Type': 'application/json',
+        'method': 'ACCOUNTS.SEARCH',
+        'Authorization': AUTH_STRING,
+        'Language': 'EN',
+        'Content-Length': Buffer.byteLength(JSON.stringify(payload)),
+        'token': storedDataString,  
+      },
+    });
 
-    const res = response.data;
-    console.log('Response:', res);
+    const resData = response.data; 
+    console.log(resData);
 
-    if (res && res.StatusCode === 0) {
-      const data = JSON.parse(res.Data); // Parse the response data
-      const account = new Account();
-
-      // Populate Account object
-      account.id = data.MobileAccountInfo.ID;
-      account.userId = data.MobileAccountInfo.USERID;
-      account.nickname = data.MobileAccountInfo.ALIAS;
-      account.msisdn = data.MobileAccountInfo.MSISDN;
-      account.accountType = data.MobileAccountInfo.TYPE;
-      account.dateRegistered = data.MobileAccountInfo.REGDATE;
-      account.dateModified = data.MobileAccountInfo.MODDATE;
-      account.kyc = data.MobileAccountInfo.KYC;
-      account.referenceAccount = data.MobileAccountInfo.REFERENCEACCOUNT;
-      account.status = data.MobileAccountInfo.STATUS;
-      account.locked = data.MobileAccountInfo.LOCKED;
-      account.currentAmount = data.CurrentstockInfo.MAINAMOUNT;
-      account.controlReference = data.PersonalInfo.CONTROLREFERENCE;
-      account.lastName = data.PersonalInfo.LASTNAME;
-      account.firstName = data.PersonalInfo.FIRSTNAME;
-      account.secondName = data.PersonalInfo.SECONDNAME;
-      account.idNumber = data.PersonalInfo.IDNUMBER;
-      account.idDescription = data.PersonalInfo.IDDESCRIPTION;
-      account.idExpiry = data.PersonalInfo.IDEXPIRYDATE;
-      account.nationality = data.PersonalInfo.NATIONALITY;
-      account.gender = data.PersonalInfo.GENDER;
-      account.dateOfBirth = data.PersonalInfo.DATEOFBIRTH;
-      account.placeOfBirth = data.PersonalInfo.PLACEOFBIRTH;
-      account.authLastName = data.PersonalInfo.AUTHORIZINGLASTNAME;
-      account.authFirstName = data.PersonalInfo.AUTHORIZINGFIRSTNAME;
-      account.authIdNumber = data.PersonalInfo.AUTHORIZINGIDNUMBER;
-      account.authIdDescription = data.PersonalInfo.AUTHORIZINGIDDESCRIPTION;
-      account.company = data.PersonalInfo.COMPANY;
-      account.profession = data.PersonalInfo.PROFESSION;
-      account.cityVillage = data.PersonalInfo.CITY;
-      account.streetName = data.PersonalInfo.STREETNAME;
-      account.bldgNumber = data.PersonalInfo.BUILDINGNUMBER;
-      account.region = data.PersonalInfo.REGION;
-      account.country = data.PersonalInfo.COUNTRY;
-      account.email = data.PersonalInfo.EMAIL;
-      account.altNumber = data.PersonalInfo.ALTNUMBER;
-      account.tin = data.PersonalInfo.TINNUMBER;
-      account.corpDate = data.CorpInfo.CORPDATEOFINCORPORATION;
-      account.commissionAmount = data.CurrentstockInfo.COMMISSIONAMOUNT;
-
-      console.log('Account object:', account);
-      return { success: true, account };
+   
+    if (resData?.StatusCode === 0) {
+      const account = new Account(JSON.parse(resData.Data));  
+      return res.status(200).json({ StatusMessage: "Success", Account: account });
     } else {
-      console.error('Error response:', res.StatusMessage);
-      return { success: false, message: res.StatusMessage };
+      console.log("message", resData?.StatusMessage);
+      return res.status(200).json({ success: false, message: resData?.StatusMessage || 'Error in response' });
     }
   } catch (error) {
-    console.error('Error during API request:', error.message);
-    return { success: false, message: 'API request failed' };
+    // Catch any errors from the external request
+    console.error('Error:', error.message);
+    return res.status(500).json({ success: false, message: error.message });
   }
 }
 
-// Export the function for use in other files
+
 module.exports = hasRows;
