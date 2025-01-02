@@ -4,6 +4,8 @@ const otpRequest = require('./auth/otpRequest'); // Import OTP request handler
 const otpResponse = require('./auth/otpResponse');
 const changePassword = require('./changepassword/changePassword');
 const hasRows = require('./subscriber/searchSubsriber');
+const accountTypes = require('./subscriber/accountTypeCollection');
+const registerSubscriber = require('./subscriber/registerSubscriber');
 const session = require('express-session');
 
 const app = express();
@@ -37,6 +39,8 @@ app.post('/auth/otpreq', otpRequest); // Use imported handler
 app.post('/auth/otpres', otpResponse);
 app.post('/changepassword/changePasswordReq', changePassword);
 app.post('/subscriber/searchSubscriber', hasRows);
+app.post('/subscriber/accountTypeCollection', accountTypes);
+app.post('/subscriber/registerSubscriber', registerSubscriber);
 
 
 const PORT = process.env.PORT || 3000;
