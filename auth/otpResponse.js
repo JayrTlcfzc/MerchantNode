@@ -1,6 +1,6 @@
 const axios = require('axios');
-const { LocalStorage } = require('node-localstorage');
-const localStorage = new LocalStorage('./scratch');
+// const { LocalStorage } = require('node-localstorage');
+// const localStorage = new LocalStorage('./scratch');
 const { setAuthString, getAuthString } = require('../authManager');
 
 
@@ -53,7 +53,7 @@ const otpResponse = async (req, res) => {
       console.error("No 'Data' field in response.");
     }
 
-    localStorage.setItem('LOGINOTPRES', JSON.stringify(responseData));
+    // localStorage.setItem('LOGINOTPRES', JSON.stringify(responseData));
     console.log("LOGINOTPRES RES:", responseData);
     res.status(200).json(responseData);
 
