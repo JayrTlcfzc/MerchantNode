@@ -48,7 +48,7 @@ const registerWebUser = async (req, res) => {
             res.status(200).json({ success: true, message: responseData.StatusMessage });
         } else {
             
-            res.status(400).json({ success: false, message: responseData.StatusMessage });
+            res.status(200).json({ success: false, message: responseData.StatusMessage });
         }
     } catch (error) {
         console.error('Error during registration request:', error);

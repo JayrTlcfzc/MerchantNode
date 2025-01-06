@@ -11,6 +11,7 @@ const registerSubscriber = require('./subscriber/registerSubscriber');
 const registerWebUser = require('./webuser/registerWebUser');
 const userLevels = require('./webuser/userLevelCollection');
 
+const getAuditTrail = require('./audittrail/auditTrail');
 const session = require('express-session');
 
 const app = express();
@@ -51,6 +52,8 @@ app.post('/subscriber/viewPendingSubsCollection', pendingSubs);
 
 app.post('/webuser/registerWebUser', registerWebUser);
 app.post('/webuser/userLevel', userLevels);
+
+app.post('/audit/getAuditTrails', getAuditTrail);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
