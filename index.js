@@ -49,11 +49,11 @@ app.post('/subscriber/searchSubscriber', hasRows);
 app.post('/subscriber/accountTypeCollection', accountTypes);
 app.post('/subscriber/registerSubscriber', registerSubscriber);
 app.post('/subscriber/viewPendingSubsCollection', pendingSubs);
-app.post('/audit/getAuditTrails', getAuditTrail);
-
 
 app.post('/webuser/registerWebUser', registerWebUser);
 app.post('/webuser/userLevel', userLevels);
+
+app.post('/audit/getAuditTrails', getAuditTrail);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
