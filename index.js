@@ -7,6 +7,10 @@ const hasRows = require('./subscriber/searchSubsriber');
 const accountTypes = require('./subscriber/accountTypeCollection');
 const pendingSubs = require('./subscriber/viewPendingSubscriber');
 const registerSubscriber = require('./subscriber/registerSubscriber');
+
+const registerWebUser = require('./webuser/registerWebUser');
+const userLevels = require('./webuser/userLevelCollection');
+
 const session = require('express-session');
 
 const app = express();
@@ -39,11 +43,14 @@ app.use(express.json());
 app.post('/auth/otpreq', otpRequest); // Use imported handler
 app.post('/auth/otpres', otpResponse);
 app.post('/changepassword/changePasswordReq', changePassword);
+
 app.post('/subscriber/searchSubscriber', hasRows);
 app.post('/subscriber/accountTypeCollection', accountTypes);
 app.post('/subscriber/registerSubscriber', registerSubscriber);
 app.post('/subscriber/viewPendingSubsCollection', pendingSubs);
 
+app.post('/webuser/registerWebUser', registerWebUser);
+app.post('/webuser/userLevel', userLevels);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
