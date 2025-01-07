@@ -10,6 +10,7 @@ const registerSubscriber = require('./subscriber/registerSubscriber');
 
 const registerWebUser = require('./webuser/registerWebUser');
 const userLevels = require('./webuser/userLevelCollection');
+const viewWebUsers = require('./webuser/viewWebUsers');
 
 const getAuditTrail = require('./audittrail/auditTrail');
 const session = require('express-session');
@@ -52,6 +53,7 @@ app.post('/subscriber/viewPendingSubsCollection', pendingSubs);
 
 app.post('/webuser/registerWebUser', registerWebUser);
 app.post('/webuser/userLevel', userLevels);
+app.post('/webuser/viewWebUser', viewWebUsers);
 
 app.post('/audit/getAuditTrails', getAuditTrail);
 
