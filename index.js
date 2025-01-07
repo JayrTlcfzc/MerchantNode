@@ -12,6 +12,7 @@ const registerWebUser = require('./webuser/registerWebUser');
 const userLevels = require('./webuser/userLevelCollection');
 const rolesConfiguration = require('./webuser/rolesConfiguration');
 const viewWebUsers = require('./webuser/viewWebUsers');
+const searchWebUser = require('./webuser/searchWebUser');
 
 const getAuditTrail = require('./audittrail/auditTrail');
 const session = require('express-session');
@@ -56,6 +57,7 @@ app.post('/webuser/registerWebUser', registerWebUser);
 app.post('/webuser/userLevel', userLevels);
 app.post('/webuser/rolesConfiguration', rolesConfiguration);
 app.post('/webuser/viewWebUser', viewWebUsers);
+app.post('/webuser/searchWebUser', searchWebUser);
 
 app.post('/audit/getAuditTrails', getAuditTrail);
 
