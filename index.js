@@ -14,6 +14,8 @@ const rolesConfiguration = require('./webuser/rolesConfiguration');
 const viewWebUsers = require('./webuser/viewWebUsers');
 const updateRoles = require('./webuser/updateRoles')
 const searchWebUser = require('./webuser/searchWebUser');
+const lockWebUser = require('./webuser/lockWebUser');
+const unlockWebUser = require('./webuser/unLockWebUser');
 
 const getAuditTrail = require('./audittrail/auditTrail');
 const session = require('express-session');
@@ -60,6 +62,8 @@ app.post('/webuser/rolesConfiguration', rolesConfiguration);
 app.post('/webuser/viewWebUser', viewWebUsers);
 app.post('/webuser/updateRoles', updateRoles);
 app.post('/webuser/searchWebUser', searchWebUser);
+app.post('/webuser/lockWebUser', lockWebUser);
+app.post('/webuser/unlockWebUser', unlockWebUser);
 
 app.post('/audit/getAuditTrails', getAuditTrail);
 
