@@ -1,7 +1,6 @@
 const axios = require('axios');
 const { setAuthString, getAuthString } = require('../authManager');
 
-
 class Account {
   constructor(data) {
     this.id = data.MobileAccountInfo?.ID || null;
@@ -82,6 +81,7 @@ async function hasRows(req, res) {
    
     if (resData?.StatusCode === 0) {
       const account = new Account(JSON.parse(resData.Data));  
+      console.log(account);
       return res.status(200).json({ StatusMessage: "Success", Account: account });
     } else {
       console.log("message", resData?.StatusMessage);

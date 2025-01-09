@@ -15,6 +15,8 @@ const viewWebUsers = require('./webuser/viewWebUsers');
 const updateRoles = require('./webuser/updateRoles')
 const searchWebUser = require('./webuser/searchWebUser');
 const addUserLevel = require('./webuser/addUserLevel');
+const editUserLevel = require('./webuser/editUserLevel');
+const userLevelSearch = require('./webuser/userLevelSearch');
 const lockWebUser = require('./webuser/lockWebUser');
 const unlockWebUser = require('./webuser/unLockWebUser');
 const activeWebUser = require('./webuser/activeWebUser');
@@ -67,6 +69,8 @@ app.post('/webuser/viewWebUser', viewWebUsers);
 app.post('/webuser/updateRoles', updateRoles);
 app.post('/webuser/searchWebUser', searchWebUser);
 app.post('/webuser/addUserLevel', addUserLevel);
+app.post('/webuser/editUserLevel', editUserLevel);
+app.post('/webuser/userLevelSearch', userLevelSearch);
 app.post('/webuser/lockWebUser', lockWebUser);
 app.post('/webuser/unlockWebUser', unlockWebUser);
 app.post('/webuser/activeWebUser', activeWebUser);
