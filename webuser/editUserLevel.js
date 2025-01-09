@@ -27,7 +27,7 @@ const addUserLevel = async (req, res) => {
     const response = await axios.post(SERVICE_URL, jsonData, {
       headers: {
         'Content-Type': 'application/json',
-        'method': 'USERS.NEWUSERSLEVEL',
+        'method': 'USERS.EDITUSERSLEVEL',
         'Authorization': AUTH_STRING,
         'Language': 'EN',
         'Content-Length': Buffer.byteLength(jsonData),
@@ -47,8 +47,8 @@ const addUserLevel = async (req, res) => {
     }
 
   } catch (error) {
-    console.error('Error during add user level request:', error);
-    res.status(500).json({ error: 'Error during add user level request!' });
+    console.error('Error during edit user level request:', error);
+    res.status(500).json({ error: 'Error during edit user level request!' });
   }
 
 };
