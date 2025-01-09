@@ -18,16 +18,16 @@ const AUTH_STRING = "Basic dGxjZnpjOnQzbGswbTEyMw==";
 
 const userLevelSearch = async (req, res) => {
   const storedDataString = getAuthString();
-  
+
   const { userLevel } = req.body;
   console.log("User Level: " + userLevel);
 
   const payload = {
     USERSLEVEL: userLevel.toString()
-  }
+  };
 
   const jsonData = JSON.stringify(payload);
-  
+
   try {
     const response = await axios.post(SERVICE_URL, jsonData, {
       headers: {
@@ -41,21 +41,37 @@ const userLevelSearch = async (req, res) => {
     });
 
     const responseData = response.data;
-    console.log('tama ba',responseData.Data);
+    console.log('tama ba', responseData.Data);
 
     if (responseData.StatusCode === 0) {
-      const resultData = new UserLevelData(JSON.parse(responseData.Data));
-      console.log('check  ',resultData)
-      res.status(200).json({ StatusMessage: "Success", message: responseData.StatusMessage, userLevelData: resultData });
+      let resultData;
+      try {
+        const parsedData = JSON.parse(responseData.Data);
+
+        // Handle array or object
+        if (Array.isArray(parsedData)) {
+          resultData = parsedData.map(item => new UserLevelData(item));
+        } else {
+          resultData = new UserLevelData(parsedData);
+        }
+
+        console.log('check', resultData);
+        res.status(200).json({ 
+          StatusMessage: "Success", 
+          message: responseData.StatusMessage, 
+          userLevelData: resultData 
+        });
+      } catch (parseError) {
+        console.error('Error parsing responseData.Data:', parseError);
+        res.status(500).json({ error: 'Error parsing response data!' });
+      }
     } else {
       res.status(200).json({ success: false, message: responseData.StatusMessage });
-    } 
-
+    }
   } catch (error) {
     console.error('Error during get roles:', error);
     res.status(500).json({ error: 'Error during get roles!' });
-
   }
-}
+};
 
 module.exports = userLevelSearch;
