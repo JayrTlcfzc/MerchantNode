@@ -17,6 +17,9 @@ const searchWebUser = require('./webuser/searchWebUser');
 const addUserLevel = require('./webuser/addUserLevel');
 const lockWebUser = require('./webuser/lockWebUser');
 const unlockWebUser = require('./webuser/unLockWebUser');
+const activeWebUser = require('./webuser/activeWebUser');
+const deactiveWebUser = require('./webuser/deactiveWebUser');
+const resetWebUser = require('./webuser/resetWebUser');
 
 const getAuditTrail = require('./audittrail/auditTrail');
 const session = require('express-session');
@@ -66,6 +69,9 @@ app.post('/webuser/searchWebUser', searchWebUser);
 app.post('/webuser/addUserLevel', addUserLevel);
 app.post('/webuser/lockWebUser', lockWebUser);
 app.post('/webuser/unlockWebUser', unlockWebUser);
+app.post('/webuser/activeWebUser', activeWebUser);
+app.post('/webuser/deactiveWebUser', deactiveWebUser);
+app.post('/webuser/resetWebUser', resetWebUser);
 
 app.post('/audit/getAuditTrails', getAuditTrail);
 
