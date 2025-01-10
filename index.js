@@ -23,6 +23,8 @@ const activeWebUser = require('./webuser/activeWebUser');
 const deactiveWebUser = require('./webuser/deactiveWebUser');
 const resetWebUser = require('./webuser/resetWebUser');
 
+const batchUploadedFiles = require('./funds/batchUploadedFiles');
+
 const getAuditTrail = require('./audittrail/auditTrail');
 const session = require('express-session');
 
@@ -76,6 +78,8 @@ app.post('/webuser/unlockWebUser', unlockWebUser);
 app.post('/webuser/activeWebUser', activeWebUser);
 app.post('/webuser/deactiveWebUser', deactiveWebUser);
 app.post('/webuser/resetWebUser', resetWebUser);
+
+app.post('/funds/batchUploadedFiles', batchUploadedFiles);
 
 app.post('/audit/getAuditTrails', getAuditTrail);
 
