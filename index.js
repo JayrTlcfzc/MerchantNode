@@ -22,6 +22,7 @@ const unlockWebUser = require('./webuser/unLockWebUser');
 const activeWebUser = require('./webuser/activeWebUser');
 const deactiveWebUser = require('./webuser/deactiveWebUser');
 const resetWebUser = require('./webuser/resetWebUser');
+const updateWebUser = require('./webuser/updateWebUser');
 
 const batchUploadedFiles = require('./funds/batchUploadedFiles');
 
@@ -78,6 +79,7 @@ app.post('/webuser/unlockWebUser', unlockWebUser);
 app.post('/webuser/activeWebUser', activeWebUser);
 app.post('/webuser/deactiveWebUser', deactiveWebUser);
 app.post('/webuser/resetWebUser', resetWebUser);
+app.post('/webuser/updateWebUser', updateWebUser);
 
 app.post('/funds/batchUploadedFiles', batchUploadedFiles);
 
