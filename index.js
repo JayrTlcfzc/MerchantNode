@@ -24,6 +24,8 @@ const deactiveWebUser = require('./webuser/deactiveWebUser');
 const resetWebUser = require('./webuser/resetWebUser');
 const updateWebUser = require('./webuser/updateWebUser');
 
+const requestReports = require('./reports/requestReport');
+const transactionType = require('./reports/transactionTypeCollection');
 const batchUploadedFiles = require('./funds/batchUploadedFiles');
 
 const getAuditTrail = require('./audittrail/auditTrail');
@@ -80,6 +82,9 @@ app.post('/webuser/activeWebUser', activeWebUser);
 app.post('/webuser/deactiveWebUser', deactiveWebUser);
 app.post('/webuser/resetWebUser', resetWebUser);
 app.post('/webuser/updateWebUser', updateWebUser);
+
+app.post('/reports/requestReport', requestReports);
+app.post('/reports/transactionTypeCollection', transactionType);
 
 app.post('/funds/batchUploadedFiles', batchUploadedFiles);
 
