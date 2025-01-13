@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const otpRequest = require('./auth/otpRequest'); // Import OTP request handler
 const otpResponse = require('./auth/otpResponse');
+const allocateOtpRequest = require('./auth/allocateOtpRequest');
 const changePassword = require('./changepassword/changePassword');
 const hasRows = require('./subscriber/searchSubsriber');
 const accountTypes = require('./subscriber/accountTypeCollection');
@@ -27,6 +28,7 @@ const updateWebUser = require('./webuser/updateWebUser');
 const requestReports = require('./reports/requestReport');
 const transactionType = require('./reports/transactionTypeCollection');
 const batchUploadedFiles = require('./funds/batchUploadedFiles');
+const allocateCash = require('./funds/allocateCash');
 
 const getAuditTrail = require('./audittrail/auditTrail');
 const session = require('express-session');
@@ -60,6 +62,7 @@ app.use(express.json());
 // Route for OTP request
 app.post('/auth/otpreq', otpRequest); // Use imported handler
 app.post('/auth/otpres', otpResponse);
+app.post('/auth/allocateOtpReq', allocateOtpRequest);
 app.post('/changepassword/changePasswordReq', changePassword);
 
 app.post('/subscriber/searchSubscriber', hasRows);
@@ -86,6 +89,7 @@ app.post('/webuser/updateWebUser', updateWebUser);
 app.post('/reports/requestReport', requestReports);
 app.post('/reports/transactionTypeCollection', transactionType);
 
+app.post('/funds/allocateCash', allocateCash);
 app.post('/funds/batchUploadedFiles', batchUploadedFiles);
 
 app.post('/audit/getAuditTrails', getAuditTrail);
