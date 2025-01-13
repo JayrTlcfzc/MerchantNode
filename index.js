@@ -27,7 +27,9 @@ const updateWebUser = require('./webuser/updateWebUser');
 
 const requestReports = require('./reports/requestReport');
 const transactionType = require('./reports/transactionTypeCollection');
+
 const batchUploadedFiles = require('./funds/batchUploadedFiles');
+const batchDetails = require('./funds/batchDetails');
 const allocateCash = require('./funds/allocateCash');
 
 const getAuditTrail = require('./audittrail/auditTrail');
@@ -91,6 +93,7 @@ app.post('/reports/transactionTypeCollection', transactionType);
 
 app.post('/funds/allocateCash', allocateCash);
 app.post('/funds/batchUploadedFiles', batchUploadedFiles);
+app.post('/funds/batchDetails', batchDetails);
 
 app.post('/audit/getAuditTrails', getAuditTrail);
 

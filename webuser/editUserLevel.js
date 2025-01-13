@@ -4,7 +4,7 @@ const { setAuthString, getAuthString } = require('../authManager');
 const SERVICE_URL = 'http://127.0.0.1:8080/Test_600_MerchantGuiService_Core/MerchantGuiReceiver/processRequest';
 const AUTH_STRING = "Basic dGxjZnpjOnQzbGswbTEyMw=="; 
 
-const addUserLevel = async (req, res) => {
+const editUserLevel = async (req, res) => {
 
   const {
     userLevel, sessionTimeout, passwordExpiry, minimumPassword, passwordHistory, maxAllocation
@@ -53,4 +53,4 @@ const addUserLevel = async (req, res) => {
 
 };
 
-module.exports = addUserLevel;
+module.exports = editUserLevel;
