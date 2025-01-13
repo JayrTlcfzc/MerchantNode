@@ -29,6 +29,8 @@ const requestReports = require('./reports/requestReport');
 const transactionType = require('./reports/transactionTypeCollection');
 
 const batchUploadedFiles = require('./funds/batchUploadedFiles');
+const batchFilesRequest = require('./funds/batchFilesRequest');
+const batchFilesTracking = require('./funds/batchFilesTracking');
 const batchDetails = require('./funds/batchDetails');
 const allocateCash = require('./funds/allocateCash');
 
@@ -93,6 +95,8 @@ app.post('/reports/transactionTypeCollection', transactionType);
 
 app.post('/funds/allocateCash', allocateCash);
 app.post('/funds/batchUploadedFiles', batchUploadedFiles);
+app.post('/funds/batchFilesRequest', batchFilesRequest);
+app.post('/funds/batchFilesTracking', batchFilesTracking);
 app.post('/funds/batchDetails', batchDetails);
 
 app.post('/audit/getAuditTrails', getAuditTrail);
