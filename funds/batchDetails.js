@@ -17,6 +17,9 @@ class BatchDetailsData {
     this.referenceTo = data.REFERENCETO || null;
     this.walletId = data.WALLETID || null;
     this.remarks = data.REMARKS || null;
+    this.firstName = data.FIRSTNAME || null;
+    this.lastName = data.LASTNAME || null;
+    this.type = data.TYPE || null;
   }
 }
 
