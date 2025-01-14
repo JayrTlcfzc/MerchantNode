@@ -7,16 +7,16 @@ const AUTH_STRING = "Basic dGxjZnpjOnQzbGswbTEyMw==";
 
 
 const allocateOtpRequest = async (req, res) => {
-  const { tranreference, module } = req.body;
+  const { TRANSREFERENCE, MODULE } = req.body;
 
   const payload = {
-    "TRANSREFERENCE": "",
-  	"MODULE": "FUNDS.WALLETTOBANK"
+    "TRANSREFERENCE": TRANSREFERENCE.toString(),
+  	"MODULE": MODULE.toString(),
   };
   
  
   try {
-    console.log("LOGINOTPREQ REQ:", JSON.stringify(payload));
+    console.log("ALLOCATE REQ:", JSON.stringify(payload));
     const storedDataString = getAuthString();
     const response = await axios.post(SERVICE_URL, JSON.stringify(payload), {
       headers: {

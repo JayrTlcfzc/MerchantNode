@@ -31,8 +31,10 @@ const transactionType = require('./reports/transactionTypeCollection');
 const batchUploadedFiles = require('./funds/batchUploadedFiles');
 const batchFilesRequest = require('./funds/batchFilesRequest');
 const batchFilesTracking = require('./funds/batchFilesTracking');
+const bankCollection = require('./funds/bankCollection')
 const batchDetails = require('./funds/batchDetails');
 const allocateCash = require('./funds/allocateCash');
+const walletToBank = require('./funds/walletToBank');
 
 const getAuditTrail = require('./audittrail/auditTrail');
 const session = require('express-session');
@@ -98,6 +100,8 @@ app.post('/funds/batchUploadedFiles', batchUploadedFiles);
 app.post('/funds/batchFilesRequest', batchFilesRequest);
 app.post('/funds/batchFilesTracking', batchFilesTracking);
 app.post('/funds/batchDetails', batchDetails);
+app.post('/funds/walletToBank', walletToBank);
+app.post('/funds/bankCollection', bankCollection);
 
 app.post('/audit/getAuditTrails', getAuditTrail);
 
