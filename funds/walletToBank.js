@@ -5,19 +5,19 @@ const SERVICE_URL = 'http://127.0.0.1:8080/Test_600_MerchantGuiService_Core/Merc
 const AUTH_STRING = "Basic dGxjZnpjOnQzbGswbTEyMw=="; 
 
 async function walletToBank(req, res) {
-  const { amount, auth, commandId, bankAccountFullName, keyname, otp, bankAccountNumber, remarks, requestId,sender } = req.body;  
+  const { amount, auth, commandId, bankaccountfullname, bank, otp, bankaccountnumber, remarks, requestId,sender } = req.body;  
   
   const payload = {
     OTP: otp.toString(),
-    bankAccountFullName: bankAccountFullName.toString(),
+    bankAccountFullName: bankaccountfullname.toString(),
     requestId: requestId.toString(),
     commandId: commandId.toString(),
     sender: sender.toString(),
-    bankAccountNumber: bankAccountNumber.toString(),
+    bankAccountNumber: bankaccountnumber.toString(),
     auth: auth.toString(),
     amount: amount.toString(),
     remarks: remarks.toString(),
-    keyname : keyname.toString(),
+    keyname : bank.toString(),
   };
   const storedDataString = getAuthString();
   try {
