@@ -1,8 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+
 const otpRequest = require('./auth/otpRequest'); // Import OTP request handler
 const otpResponse = require('./auth/otpResponse');
 const allocateOtpRequest = require('./auth/allocateOtpRequest');
+const batchFilesOtpRequest = require('./auth/batchFilesOtpRequest');
+
 const changePassword = require('./changepassword/changePassword');
 const hasRows = require('./subscriber/searchSubsriber');
 const accountTypes = require('./subscriber/accountTypeCollection');
@@ -33,6 +36,7 @@ const batchFilesRequest = require('./funds/batchFilesRequest');
 const batchFilesTracking = require('./funds/batchFilesTracking');
 const bankCollection = require('./funds/bankCollection')
 const batchDetails = require('./funds/batchDetails');
+const batchFilesAction = require('./funds/batchFilesAction');
 const allocateCash = require('./funds/allocateCash');
 const walletToBank = require('./funds/walletToBank');
 
@@ -69,6 +73,8 @@ app.use(express.json());
 app.post('/auth/otpreq', otpRequest); // Use imported handler
 app.post('/auth/otpres', otpResponse);
 app.post('/auth/allocateOtpReq', allocateOtpRequest);
+app.post('/auth/batchFilesOtpRequest', batchFilesOtpRequest);
+
 app.post('/changepassword/changePasswordReq', changePassword);
 
 app.post('/subscriber/searchSubscriber', hasRows);
@@ -100,6 +106,7 @@ app.post('/funds/batchUploadedFiles', batchUploadedFiles);
 app.post('/funds/batchFilesRequest', batchFilesRequest);
 app.post('/funds/batchFilesTracking', batchFilesTracking);
 app.post('/funds/batchDetails', batchDetails);
+app.post('/funds/batchFilesAction', batchFilesAction);
 app.post('/funds/walletToBank', walletToBank);
 app.post('/funds/bankCollection', bankCollection);
 
