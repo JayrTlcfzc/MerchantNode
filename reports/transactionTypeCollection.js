@@ -26,8 +26,8 @@ const transactionTypeCollection = async () => {
     console.error('Error during transaction type request:', error);
     throw error;  
   }
-};
 
+};
 
 const express = require('express');
 const router = express.Router();

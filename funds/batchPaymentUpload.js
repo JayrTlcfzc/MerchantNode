@@ -8,16 +8,19 @@ const batchPaymentUpload = async (req, res) => {
 
   const storedDataString = getAuthString();
 
-  const { fileName, filePath, msisdn } = req.body;
+  const { FILENAME, FILEPATH, MSISDN } = req.body;
+  console.log(req.body);
 
   const remoteAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress;
 
   const payload = {
-    msisdn: Number(msisdn),
-    fileName: fileName,
-    csvFileName : filePath,
+    msisdn: MSISDN.toString(),
+    fileName: FILENAME.toString(),
+    csvFileName : FILEPATH.toString(),
     ip: remoteAddress.toString(),
   }
+
+  console.log("payload  ",payload)
 
   try {
       

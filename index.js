@@ -40,6 +40,7 @@ const batchFilesAction = require('./funds/batchFilesAction');
 const allocateCash = require('./funds/allocateCash');
 const walletToBank = require('./funds/walletToBank');
 const batchPaymentUpload = require('./funds/batchPaymentUpload');
+const { upload, uploadFile } = require('./funds/fileUpload');
 
 const getAuditTrail = require('./audittrail/auditTrail');
 const session = require('express-session');
@@ -111,6 +112,7 @@ app.post('/funds/batchFilesAction', batchFilesAction);
 app.post('/funds/walletToBank', walletToBank);
 app.post('/funds/bankCollection', bankCollection);
 app.post('/funds/batchPaymentUpload', batchPaymentUpload);
+app.post('/funds/fileUpload', upload.single('file'), uploadFile);
 
 app.post('/audit/getAuditTrails', getAuditTrail);
 
