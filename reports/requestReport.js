@@ -13,11 +13,12 @@ const requestReport = async (req, res) => {
 
     const payload = {
         REPORTNAME: reportType.toString(),
-        REPORTTYPE: reportType.toString(),
+        REPORTTYPE: "BYACCOUNT",
+        MSISDN: msisdn.toString(),
         TRANSTYPE: transType.toString(),
         DATEFROM: dateFrom.toString(),
         DATETO: dateTo.toString(),
-        REMARKS: otpMsisdn.toString()
+        REMARKS: "",
     };
 
     const jsonData = JSON.stringify(payload);
