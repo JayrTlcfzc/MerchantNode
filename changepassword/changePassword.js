@@ -10,7 +10,7 @@ const AUTH_STRING = "Basic dGxjZnpjOnQzbGswbTEyMw==";
 const changePassword = async (req, res) => {
   const { OLDPASSWORD, PASSWORD } = req.body;
   const encodedOldPassword = encodeURIComponent(OLDPASSWORD.trim());
-  const encodedPassword = encodeURIComponent(PASSWORD.trim());
+  const encodedPassword = decodeURIComponent(PASSWORD.trim());
 
   const payload = {
     OLDPASSWORD: encodedOldPassword,

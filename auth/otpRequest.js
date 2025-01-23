@@ -15,10 +15,12 @@ function getAuthString(account, sessionID, remoteAddress) {
 const otpRequest = async (req, res) => {
   const { msisdn, username, password } = req.body;
 
+  const decodePassword = decodeURIComponent(password);
+
   const payload = {
     MSISDN: msisdn.toString(),
     USERNAME: username.toString(),
-    PASSWORD: password.toString(),
+    PASSWORD: decodePassword.toString(),
   };
   
   const account = username.toString(); 
