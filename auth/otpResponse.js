@@ -11,11 +11,13 @@ const AUTH_STRING = "Basic dGxjZnpjOnQzbGswbTEyMw==";
 const otpResponse = async (req, res) => {
   const { otp, msisdn, username, password } = req.body;
 
+  const decodePassword = decodeURIComponent(password);
+
   const payload = {
     OTP: otp.toString(),
     MSISDN: msisdn.toString(),
     USERNAME: username.toString(),
-    PASSWORD: password.toString(),
+    PASSWORD: decodePassword.toString(),
   };
 
   const storedDataString = getAuthString();
