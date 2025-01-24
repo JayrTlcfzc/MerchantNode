@@ -7,16 +7,19 @@ const AUTH_STRING = "Basic dGxjZnpjOnQzbGswbTEyMw==";
 async function batchFilesAction(req, res) {
 
   const storedDataString = getAuthString();
-  const { fileId, otpValue, remarks, module } = req.body
+  const { fileId, otp, remarks, module } = req.body
+  console.log("fileId: "+ fileId);
+  console.log("otpValue: "+ otp);
+  console.log("remarks: "+ remarks);
 
   const payload = {
     fileId: fileId.toString(),
-    OTP: otpValue.toString(),
+    OTP: otp.toString(),
     REMARKS: remarks.toString()
   }
-  console.log("PAYLOAD: " + payload);
+  console.log("PAYLOAD: ", payload);
 
-  const method = { module: module.toString() }
+  // const method = { module: module.toString() }
   console.log("MODULE: " + module);
 
 try {
@@ -33,7 +36,7 @@ try {
     });
 
     const resData = response.data; 
-    console.log("resData: " + resData);
+    console.log("resData: " , resData.StatusCode);
 
     if (resData?.StatusCode === 0) {
       return res.status(200).json({ success: true, message: resData.StatusMessage });
