@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require('body-parser');
 
 const otpRequest = require("./auth/otpRequest"); // Import OTP request handler
 const otpResponse = require("./auth/otpResponse");
@@ -33,6 +34,7 @@ const requestReports = require("./reports/requestReport");
 const transactionType = require("./reports/transactionTypeCollection");
 const generateReview = require("./reports/generateReview");
 const generateDataPDF = require("./reports/generateDataPDF");
+const downloadPDF = require("./reports/downloadPDF");
 
 const batchUploadedFiles = require("./funds/batchUploadedFiles");
 const batchFilesRequest = require("./funds/batchFilesRequest");
@@ -109,6 +111,7 @@ app.post("/reports/requestReport", requestReports);
 app.post("/reports/transactionTypeCollection", transactionType);
 app.post("/reports/generateReview", generateReview);
 app.post("/reports/generateDataPDF", generateDataPDF);
+app.post("/reports/downloadPDF", downloadPDF);
 
 app.post("/funds/allocateCash", allocateCash);
 app.post("/funds/batchUploadedFiles", batchUploadedFiles);
