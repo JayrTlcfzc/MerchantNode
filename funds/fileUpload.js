@@ -4,7 +4,8 @@ const path = require('path');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '../../MerchantGUI/uploads')); // Make sure the 'uploads' directory exists
+    // cb(null, path.join(__dirname, '../../MerchantGUI/uploads'));
+    cb(null, path.join(__dirname, '/var/www/html/MerchantCDI/uploads/'));
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
