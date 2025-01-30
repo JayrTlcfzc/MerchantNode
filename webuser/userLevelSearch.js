@@ -1,4 +1,5 @@
 const axios = require('axios');
+require('dotenv').config();
 const { setAuthString, getAuthString } = require('../authManager');
 
 class UserLevelData {
@@ -13,8 +14,8 @@ class UserLevelData {
   }
 }
 
-const SERVICE_URL = 'http://127.0.0.1:8080/Test_600_MerchantGuiService_Core/MerchantGuiReceiver/processRequest';
-const AUTH_STRING = "Basic dGxjZnpjOnQzbGswbTEyMw=="; 
+const SERVICE_URL = process.env.SERVICE_URL;
+const AUTH_STRING = process.env.AUTH_STRING;
 
 const userLevelSearch = async (req, res) => {
   const storedDataString = getAuthString();
