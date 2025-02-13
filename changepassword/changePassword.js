@@ -10,7 +10,7 @@ const AUTH_STRING = process.env.AUTH_STRING;
   
 const changePassword = async (req, res) => {
   const { OLDPASSWORD, PASSWORD } = req.body;
-  const encodedOldPassword = encodeURIComponent(OLDPASSWORD.trim());
+  const encodedOldPassword = OLDPASSWORD.trim();
   const encodedPassword = decodeURIComponent(PASSWORD.trim());
 
   const payload = {
